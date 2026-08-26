@@ -70,7 +70,7 @@ O detalhamento técnico completo (ciclos de vida do Angular, uso de RxJS, biblio
 
 ## 🎥 Vídeo de apresentação
 
-[Link do vídeo será adicionado aqui]
+https://drive.google.com/file/d/1gsyhSdrbItpiX5Ta2Xn7G4d4yBDgvwb4/view?usp=sharing
 
 ## 👤 Autor
 
