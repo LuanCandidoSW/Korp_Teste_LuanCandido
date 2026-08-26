@@ -1,0 +1,16 @@
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# .NET
+bin/
+obj/
+
+# Bancos de dados locais
+*.db
+*.db-shm
+*.db-wal
+
+# Outros
+.vscode/

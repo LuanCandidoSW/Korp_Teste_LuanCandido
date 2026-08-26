@@ -1,0 +1,67 @@
+<div class="container">
+  <h2>Emitir Nota Fiscal</h2>
+
+  <div class="form-item">
+    <input type="text" [(ngModel)]="novoItem.codigoProduto" placeholder="Código do produto (ex: 001)">
+    <input type="number" [(ngModel)]="novoItem.quantidade" placeholder="Quantidade" min="1">
+    <button (click)="adicionarItem()">Adicionar item</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Código do Produto</th>
+        <th>Quantidade</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of itensNovaNota; track $index) {
+        <tr>
+          <td>{{ item.codigoProduto }}</td>
+          <td>{{ item.quantidade }}</td>
+          <td><button (click)="removerItem($index)">Remover</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <button (click)="criarNota()">Criar Nota Fiscal</button>
+
+  <hr style="margin: 20px 0;">
+
+  <h2>Notas Fiscais</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Status</th>
+        <th>Itens</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (nota of notas; track nota.id) {
+        <tr>
+          <td>{{ nota.numero }}</td>
+          <td>{{ nota.status }}</td>
+          <td>
+            @for (item of nota.itens; track item.codigoProduto) {
+              <div>{{ item.codigoProduto }} (x{{ item.quantidade }})</div>
+            }
+          </td>
+          <td>
+            @if (nota.status === 'Aberta') {
+              @if (imprimindo === nota.id) {
+                <button disabled>Processando...</button>
+              } @else {
+                <button (click)="imprimir(nota.id!)">Imprimir</button>
+              }
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
