@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaturamentoService.Migrations
 {
     [DbContext(typeof(FaturamentoContext))]
-    [Migration("20260825012701_InicialFaturamento")]
+    [Migration("20260826213905_InicialFaturamento")]
     partial class InicialFaturamento
     {
         /// <inheritdoc />

@@ -41,6 +41,7 @@ export class Notas implements OnInit {
     this.http.get<NotaFiscal[]>(this.apiUrl).subscribe({
       next: (res) => {
         this.notas = [...res];
+        this.cdr.detectChanges();
       },
       error: (err) => console.error(err)
     });

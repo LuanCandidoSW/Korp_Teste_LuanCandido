@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ export class Produtos implements OnInit {
   novoProduto: Produto = { codigo: '', descricao: '', saldo: 0 };
   produtos: Produto[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -29,25 +29,32 @@ export class Produtos implements OnInit {
 
   carregarProdutos(): void {
     this.http.get<Produto[]>(this.apiUrl).subscribe({
-      next: (res) => (this.produtos = res),
+      next: (res) => {
+        this.produtos = [...res];
+        this.cdr.detectChanges();
+      },
       error: (err) => console.error(err)
     });
   }
 
-  adicionarProduto(): void {
-    if (!this.novoProduto.codigo || !this.novoProduto.saldo) {
+  adicionarProduto(codigo: string, descricao: string, saldoStr: string): void {
+    const saldo = Number(saldoStr);
+
+    if (!codigo || !saldoStr || isNaN(saldo)) {
       alert('Preencha pelo menos o código e o saldo!');
       return;
     }
 
-    this.http.post<Produto>(this.apiUrl, this.novoProduto).subscribe({
+    const produto: Produto = { codigo, descricao, saldo };
+
+    this.http.post<Produto>(this.apiUrl, produto).subscribe({
       next: () => {
-        this.carregarProdutos();
         this.novoProduto = { codigo: '', descricao: '', saldo: 0 };
+        this.carregarProdutos();
       },
       error: (err) => {
         if (err.status === 400 && err.error?.includes('já existe')) {
-          this.adicionarSaldoExistente(this.novoProduto.codigo, this.novoProduto.saldo);
+          this.adicionarSaldoExistente(codigo, saldo);
         } else {
           alert(typeof err.error === 'string' ? err.error : 'Erro ao cadastrar produto.');
         }
@@ -60,8 +67,8 @@ export class Produtos implements OnInit {
     this.http.post<Produto>(url, { quantidade }).subscribe({
       next: () => {
         alert(`Saldo do produto ${codigo} atualizado com sucesso!`);
-        this.carregarProdutos();
         this.novoProduto = { codigo: '', descricao: '', saldo: 0 };
+        this.carregarProdutos();
       },
       error: (err) => alert(typeof err.error === 'string' ? err.error : 'Erro ao adicionar saldo.')
     });
