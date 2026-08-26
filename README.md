@@ -66,7 +66,7 @@ Acesse `http://localhost:4200` no navegador.
 
 ## 📄 Detalhamento técnico
 
-O detalhamento técnico completo (ciclos de vida do Angular, uso de RxJS, bibliotecas utilizadas, frameworks do backend, tratamento de erros e uso de LINQ) está disponível no arquivo [`detalhamento_tecnico.docx`](./detalhamento_tecnico.docx), na raiz deste repositório.
+O detalhamento técnico completo (ciclos de vida do Angular, uso de RxJS, bibliotecas utilizadas, frameworks do backend, tratamento de erros e uso de LINQ) está disponível no arquivo [detalhamento_tecnico.pdf](./detalhamento_tecnico.pdf), na raiz deste repositório.
 
 ## 🎥 Vídeo de apresentação
 
